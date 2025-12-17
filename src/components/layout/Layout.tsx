@@ -1,11 +1,21 @@
+import NavBar from "./NavBar";
+import Footer from "./Footer";
+import type { ReactNode } from "react";
 
-
-const Layout = () => {
-    return (
-        <div>
-            Layout
-        </div>
-    )
+interface LayoutProps {
+    children: ReactNode;
 }
 
-export default Layout
+const Layout = ({ children }: LayoutProps) => {
+    return (
+        <div className="">
+            <NavBar />
+            <main>
+                {children}
+            </main>
+            <Footer />
+        </div>
+    );
+};
+
+export default Layout;
