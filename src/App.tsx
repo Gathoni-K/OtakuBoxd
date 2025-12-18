@@ -6,6 +6,7 @@ import { AuthProvider } from './contexts/AuthContext';
 // import SignUp from "./pages/SignUp";
 // import HomePage from "./pages/HomePage";
 import NavBar from "./components/layout/NavBar";
+import Footer from "./components/layout/Footer";
 import HeroSection from "./components/sections/HeroSection";
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
                 // </BrowserRouter> */}
                 <NavBar />
                 <HeroSection />
+                <Footer />
             </AuthProvider>
         </ThemeProvider>
     );

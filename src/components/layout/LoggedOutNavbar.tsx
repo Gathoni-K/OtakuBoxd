@@ -21,7 +21,7 @@ const LoggedOutNavbar = () => {
                     before:content-[''] before:absolute before:bottom-0 before:left-0
                     before:w-0 before:h-0.5 before:bg-fuchsia-500 before:transition-all before:duration-300
                     hover:before:w-full
-                    hover:drop-shadow-[0_0_10px_#fuchsia-500]">
+                    hover:drop-shadow-[0_0_10px_#a21caf]">
                     Anime
                 </a>
                 <a className="relative tracking-wide cursor-pointer 
