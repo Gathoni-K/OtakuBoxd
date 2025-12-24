@@ -84,3 +84,11 @@ General Pattern:
     })
     }
     '
+
+**Creating a horizontal line**
+        '
+        <hr className="my-5 border-t-2/4/8 border-tailwindColors border-dashed/dotted/double"/>
+        '
+the 'my-8' creates vertical spacing, i.e. space above and below the line.
+
+

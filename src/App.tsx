@@ -8,6 +8,7 @@ import { AuthProvider } from './contexts/AuthContext';
 import NavBar from "./components/layout/NavBar";
 import Footer from "./components/layout/Footer";
 import HeroSection from "./components/sections/HeroSection";
+import Services from "./components/sections/Services";
 
 function App() {
     return (
@@ -22,6 +23,7 @@ function App() {
                 // </BrowserRouter> */}
                 <NavBar />
                 <HeroSection />
+                <Services />
                 <Footer />
             </AuthProvider>
         </ThemeProvider>
