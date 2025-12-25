@@ -91,4 +91,109 @@ General Pattern:
         '
 the 'my-8' creates vertical spacing, i.e. space above and below the line.
 
+**Setting up our API with Tanstcak Query.**
+
+**1.Creating our .env file**
+Syntax:
+    '
+    VITE_APINAME_API_URL=APIurl
+    '
+There should be no spaces or semi-colon.
+-The file is created at the root directory.
+-To access the data:
+        '
+        const apiUrl = import.meta.env.VITE_APINAME_API_URL;
+        '
+
+**2.Update our gitignore**
+-Add this in our gitignore file:
+    '
+    #Environment variables
+    .env
+    '
+
+**3.Creating the necessary folders in src**
+the api, hooks, types and lib folders.
+1.api-file containing all our api calls.
+2.hooks - keep our tanstack query hooks.
+3.types- keep our interfaces.
+4.lib - query client config.
+-Group related endpoints/hooks in the same file.
+
+**4.Set up our API client.**
+-This is done inside client.ts file in the api folder.
+-An API client is a programme that sends or request data.
+-Tool handling all the communication between frontend and api.
+    '
+    import axios from "axios"
+    //axios is a library making HTTP requests easier.
+    //is like fetch but with more features and better defaults
+
+    export const apiClient = axios.create({
+        //axios.create creates a customized instance of axios.
+        //is like creating own specialized manager.
+        baseUrl: import.meta.env.VITE_API_BASE_URL,
+        //sets up the base URL for all requests
+        timeout: 10000,
+        //the max time needed to wait for a response, if time exceeds the request fails.
+        headers: {
+            'Content-Type' : 'application/json',
+        },
+    });
+
+    <!-- optional, here add auth tokens, error handling etc -->
+    apiClient.interceptors.request.use((config) => {
+        //add auth token if needed.
+        const token = localStorage.getItem('token');
+        if(token) config.headers.Authorization = `Bearer ${token}`;
+        return config;
+    });
+
+    apiClient.interceptors.response.use(
+        //interceptors are middleware running before and after requests.
+        //this runs after getting a response.
+        //if successful, returns our response.
+        (response) => response,
+        (error) => {
+            //global error handling
+            console.error("API error:" error);
+            return Promise.reject(error);
+            //if fails, log the error and pass the error along.
+        }
+    );
+    '
+-Create one client per API/backend you will communicate with.
+-General template for each client.
+
+**5.Define the TS types.**
+-Define the shape of data we are to get from our API.
+-This is done in the types folder.
+
+**6.Create API functions.**
+-Is done in the api folder.
+-Map App's features to API endpoints.
+-Our app's features:
+    1.Browse anime.
+    2.View anime details.
+    3.Search for anime.
+    4.Add to watchlist.
+    5.Write reviews.
+-Create one function per endpoint.
+-For any API endpoint follow the template below:
+    '
+    actionName: async (parameters) => {
+        const {data} = await clientName.get<ResponseType>('endpoint', {
+            params: {//query parameters for here},
+        });
+        return data;
+    }
+    '
+
+**7.Create Query Hooks.**
+-Done in the hooks folder.
+
+
+
+
+
 

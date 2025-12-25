@@ -9,6 +9,7 @@ import NavBar from "./components/layout/NavBar";
 import Footer from "./components/layout/Footer";
 import HeroSection from "./components/sections/HeroSection";
 import Services from "./components/sections/Services";
+import Popular from './components/sections/Popular';
 
 function App() {
     return (
@@ -24,6 +25,7 @@ function App() {
                 <NavBar />
                 <HeroSection />
                 <Services />
+                <Popular />
                 <Footer />
             </AuthProvider>
         </ThemeProvider>
