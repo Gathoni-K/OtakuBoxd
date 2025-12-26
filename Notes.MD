@@ -3,27 +3,32 @@
 **1.Create the Context.**
 always type our context as undefined and as the type of our context i.e.
     '
+    
     const ThemeContext = createContext<ThemContextType | undefined>(undefined);
-    '
+    
 
 **2.Create the Provider.**
 -State management: the provider owns the state:
     '
+    
     const [ isDark, setIsDark ] = useState<boolean>(false);
-    '
+    
 -Provider will also handle side-effects if any, in our case, the DOM updates whenever we change our theme.
     '
+    
     useEffect(() => {
         document.documentElement.classList.toggle("dark", isDark);
     }, [isDark]);
-    '
+    
 -useEffect tells React:
     "Hey, run this side-effect when something changes."
 -By side-effect, anything outside React's normal render flow like DOM, localStorage, APIs, timers etc.
 -'document.documentElement' is basically the <html> element.
 -toggle works like, add if missing, removes if present.
 -In our case we have:
-    'toggle(className, condition)'
+    '
+    
+    toggle(className, condition)
 -Meaning; if isDark === true, add dark, and if false, remove dark.
 -Our dependency array; '[isDark]' only runs the effect, remove and add dark when isDark changes.
 
@@ -32,18 +37,21 @@ always type our context as undefined and as the type of our context i.e.
 
 -Also creates helper functions, provider will create utility functions:
     '
+    
     const toggleTheme = () => setIsDark(prev => !prev);
-    '
+    
 -Broadcasting - provider broadcasts everything.
     '
+    
     <ThemeContext.Provider value={{isDark, setIsDark, toggleTheme}}>
-    '
+    
 
 
 **3.Create the hook.**
 General Pattern:
-        '
-        export const useContextName = () => {
+    '
+    
+    export const useContextName = () => {
             const context = useContext(ContextNameContext);
             if(!context) {
                 throw new Error("useContextName
@@ -51,28 +59,31 @@ General Pattern:
             }
             return context;
         }
-        '
+        
 
 **Mapping through Styles**
 
 **1.Base styles.**
  '
+ 
  const baseClassName = "shared styles go here"
- '
+ 
 
 **2.Data array**
 -Defines what the element is, the structure only.
 -Properties given are id, label etc.
     '
+    
     const element = [
         {id:1, label:""},
         {id: 2, label:""},
 
     ]
-    '
+    
 
 **3.Map, combine the styles**
     '
+
     {items.map(item => {
         <element
         key={item.id}
@@ -83,12 +94,14 @@ General Pattern:
         </element>
     })
     }
-    '
+    
 
 **Creating a horizontal line**
-        '
+    '
+    
         <hr className="my-5 border-t-2/4/8 border-tailwindColors border-dashed/dotted/double"/>
-        '
+    
+        
 the 'my-8' creates vertical spacing, i.e. space above and below the line.
 
 **Setting up our API with Tanstcak Query.**
@@ -96,7 +109,9 @@ the 'my-8' creates vertical spacing, i.e. space above and below the line.
 **1.Creating our .env file**
 Syntax:
     '
+    
     VITE_APINAME_API_URL=APIurl
+
     '
 There should be no spaces or semi-colon.
 -The file is created at the root directory.
@@ -125,6 +140,7 @@ the api, hooks, types and lib folders.
 -An API client is a programme that sends or request data.
 -Tool handling all the communication between frontend and api.
     '
+    
     import axios from "axios"
     //axios is a library making HTTP requests easier.
     //is like fetch but with more features and better defaults
@@ -191,6 +207,66 @@ the api, hooks, types and lib folders.
 
 **7.Create Query Hooks.**
 -Done in the hooks folder.
+
+**Defining the TS types**
+Data fetched from our API:
+1.HomePage: a list of most popular anime; image, name, status
+2.Anime: a grid of anime; image, heading, status, description
+
+**Creating API functions**
+
+**Deciding on the parameters.**
+1.Look at the endpoint, if the endpoint returns valid data with no query parameters then all query parameters are optional.
+2.Read the list of query parameters, the list tells us they ways we are allowed to change the default behaviour.
+3.Decide what our UI/feature needs to control, define function parameters for behaviour needed to change.
+
+
+**Creating Query Hooks**
+-One query hook per API function.
+-But if it is the same endpoint but different endpoint, another hook can be created.
+-Note that mutations such as updating watch status and adding a review follow a different pattern.
+-Hooks map to UI intent.
+
+Universal template:
+    '
+
+    export const use[ResourceName] = (params, options?) => {
+    //options is used if 2 components want the same data but different fetching behaviour
+    //they exist mainly for edge-cases
+        return useQuery({
+            queryKey: ["resource", "action", ...parameters],
+            queryFn: () => apiFunction(params),
+            //arrow function calling our API function
+
+            staleTime: 5 * 60 * 1000,
+            //sets for how long data is considered fresh, will only refetch data after 5 mins
+            //fast-changing data like live scores, news: 1-2 mins,
+            //normal data, anime lists - 5-10 mins
+            //rarely changes, anime lists - 30-60 mins
+            //almost never changes, static content - 24 hrs
+            gcTime: 10 * 60 * 1000,
+            //states how long unused data is kept.
+            enabled: true,
+            //property setting whether the query should run
+            ...options,
+        });
+    };
+
+-The hook name should follow this syntax: 
+    '
+
+    useActionResource
+
+-use + what we're getting + what resource : useTopAnime, useSearchAnime
+-The parameters our hook needs are the same parameters as our API function.
+-The Query key is a unique identifier for caching.
+-The pattern is:
+    '
+
+    ['resource', 'action', ...dynamic values]
+
+-The dynamic values are the parameters that can change, parameters in our hook.
+
 
 
 
