@@ -207,6 +207,7 @@ the api, hooks, types and lib folders.
 
 **7.Create Query Hooks.**
 -Done in the hooks folder.
+-For every API endpoint, create a hook.
 
 **Defining the TS types**
 Data fetched from our API:
@@ -266,6 +267,33 @@ Universal template:
     ['resource', 'action', ...dynamic values]
 
 -The dynamic values are the parameters that can change, parameters in our hook.
+
+**Consuming a hook in our component**
+-General pattern: 
+    '
+
+    function ComponentName() {
+        const { data, isLoading, isError, error } = useHookName(params);
+
+        if(isLoading) {
+            return <div> Loading anime data... </div>
+        }
+        if(isError) {
+            return <div>
+            Error: {{error as Error}?.message}
+            </div>
+        }
+
+        const processedData = data?.data || [];
+
+        return (
+            <div>
+            {processedData.map(item => {
+                //define how the data should look like
+            })}
+            </div>
+        )
+    }
 
 
 

@@ -20,6 +20,7 @@ export interface Anime {
     images: AnimeImages;
     status: string;
     popularity: number;
+    score: number;
 }
 
 

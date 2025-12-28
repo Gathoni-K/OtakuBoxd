@@ -54,8 +54,8 @@ const LoggedInNavbar = () => {
                 />
                 <button 
                     onClick={logout}
-                    className="bg-fuchsia-500 text-white px-4 py-2 rounded-lg
-                        font-medium hover:bg-violet-800 transition cursor-pointer hover:scale-110">
+                    className="bg-violet-800 text-white px-4 py-2 rounded-lg
+                        font-medium hover:bg-violet-500 transition cursor-pointer hover:scale-110">
                     Logout
                 </button>
             </div>

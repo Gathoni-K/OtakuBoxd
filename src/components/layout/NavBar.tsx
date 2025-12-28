@@ -9,7 +9,7 @@ const NavBar = () => {
     const { isLoggedIn } = useAuth();
 
     return (
-        <nav className="flex flex-col md:flex-row items-center justify-between px-6 py-4 bg-white dark:bg-gray-800 shadow-md">
+        <nav className="flex flex-col md:flex-row items-center justify-between px-6 py-4 bg-fuchsia-500 rounded-lg dark:bg-gray-800 shadow-md">
             {/* Navbar links */}
             <div className="w-full">
                 {isLoggedIn ? (

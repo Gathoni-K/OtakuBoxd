@@ -6,6 +6,7 @@ import {
     CarouselPrevious,
 } from "../../components/ui/carousel.tsx";
 import Autoplay from "embla-carousel-autoplay";
+import { Link } from "react-router-dom";
 
 const HeroSection = () => {
     return (
@@ -87,12 +88,12 @@ const HeroSection = () => {
                 {/* CTA buttons */}
             <div
             className="absolute bottom-4 right-8 z-10">
-                <button
+                <Link to="/anime"
                 className="px-6 py-3 rounded-lg bg-violet-800 text-white hover:bg-blue-700 transition-colors
                 cursor-pointer hover:scale-110"
                 >
                     Browse Anime
-                </button>
+                </Link>
             </div>
 
             </div>

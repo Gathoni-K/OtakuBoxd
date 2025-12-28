@@ -1,5 +1,5 @@
 const linkStyles = 
-    "drop-shadow-xl text-gray-900 dark:text-stone-50 hover:drop-shadow-[0_0_10px_#a21caf] cursor-pointer relative tracking-wide transition-all duration-300 drop-shadow-violet-300 before:content-[''] before:absolute before:bottom-0 before:left-0 before:w-0 before:h-0.5 before:bg-fuchsia-500 before:transition-all before:duration-300 hover:before:w-full"
+    "drop-shadow-xl text-stone-50 dark:text-stone-50 hover:drop-shadow-[0_0_10px_#a21caf] cursor-pointer relative tracking-wide transition-all duration-300 drop-shadow-violet-300 before:content-[''] before:absolute before:bottom-0 before:left-0 before:w-0 before:h-0.5 before:bg-violet-700 before:transition-all before:duration-300 hover:before:w-full"
 
 const footerLinks = [
     {id:1, label:"Anime"},
@@ -18,8 +18,8 @@ const thirdRow = footerLinks.slice(6, 7);
 const Footer = () => {
     return (
         <div className="
-        shadow-3xl bg:stone-50 dark:bg-gray-800
-        p-4 text-white md:p-6 rounded-lg">
+        shadow-3xl bg-fuchsia-500 dark:bg-gray-800
+        p-4 text-stone-50 md:p-6 rounded-lg">
             {/* top part of our footer */}
             <div className="flex flex-col">
 
@@ -125,7 +125,7 @@ const Footer = () => {
             <div>
                 {/* bottom part of our footer */}
                 <h4 className="flex justify-center items-center
-                text-gray-500 dark:text-stone-400">
+                text-stone-200 dark:text-stone-400">
                 @2024 OtakuBoxd | Privacy | Terms
                 </h4>
             </div>
