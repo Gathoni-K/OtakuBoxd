@@ -1,4 +1,4 @@
-**Context API**
+# Context API
 
 **1.Create the Context.**
 always type our context as undefined and as the type of our context i.e.
@@ -294,6 +294,95 @@ Universal template:
             </div>
         )
     }
+
+**Setting up our search  query.**
+
+-How does it work?
+
+-On entering an anime name in the input field, the anime's
+name, score, type, and status is shown.
+-Click enter, fetch anime data from the API.
+-Need state to manage our user input.
+
+What do we need?
+
+-Capture user input.
+-In our input component: 
+    '
+
+    import { useState } from 'react';
+
+    function MyForm() {
+    const [name, setName] = useState<string>('');
+
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setName(e.target.value); // Capture value on every keystroke
+  };
+
+  return (
+    <input type="text" value={name} onChange={handleChange} />
+  );
+}
+
+-Search trigger.
+-On pressing the enter key, calls our fetch function once.
+    '
+
+    const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+    console.log("Searching for:", nameOfDataVar);
+    }
+    };
+
+    <input 
+    type="text" 
+    onKeyDown={handleKeyDown} 
+    onChange={(e) => setQuery(e.target.value)} 
+    />
+
+-In our handleDown function, we need:
+1.takes the anime value.
+2.fetches anime from the API.
+3.returns the anime data
+4..displays the result
+
+-The complete flow:
+1.User types anime name - name state updates.
+2.User presses Enter, search Jikan API.
+3.Display a list of search results.
+
+**Architecture:**
+
+**State Management.**
+1.lives in AnimePage.
+1. name - the search input text.
+2. searchResults - array of anime returned from search API.
+3. selectedId - returns the anime details of the selected anime.
+
+**Functions**
+-Also live in Anime page.
+1.handleSearch() - fetches from our API and stores our results in searchResults.
+2.handleSelectAnime(id) - sets the selectedId when user clicks an anime from results.
+3.handleClearSearch() - clears search, resets searchResults and selectedId back to null.
+
+**Display Logic**
+-If no search has happens, searchResults is empty, shows AnimeGrid.
+-else if searchResults exists, but no anime has been selected yet, show searchResults component(list of results)
+-else if selectedId exists, show AnimeDetails component(full info of the anime)
+
+**Component Props**
+1.SearchBar = name, setName, handleSearch.
+2.SearchResults = searchResults, handleSelectAnime.
+3.AnimeDetails = selectedId, uses useAnimeData internally.
+
+
+
+
+
+
+
+
+
 
 
 

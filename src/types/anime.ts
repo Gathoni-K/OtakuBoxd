@@ -15,6 +15,7 @@ export interface AnimeListResponse {
 
 
 export interface Anime {
+    data: Anime[];
     mal_id: number;
     title: string;
     images: AnimeImages;

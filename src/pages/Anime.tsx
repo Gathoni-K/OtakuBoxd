@@ -2,9 +2,20 @@ import SearchBar from "../components/ui/SearchBar";
 import Layout from "../components/layout/Layout";
 import AnimeGrid from "../components/sections/AnimeGrid";
 import UpcomingAnimeGrid from "../components/sections/UpcomingAnimeGrid";
+import { useState } from "react";
+import type {Anime, AnimeDetails, AnimeListResponse } from "../types/anime";
+
 
 
 const Anime = () => {
+
+    const [name, setName ] = useState<string>("");
+    const [searchResults, setSearchResults] = useState<AnimeListResponse>();
+    const [selectedId, setSelectedId ] = useState<AnimeDetails>();
+
+    function handleSearch(){
+
+    }
     return (
         <Layout>
             <SearchBar />
