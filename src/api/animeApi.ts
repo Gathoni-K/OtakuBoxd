@@ -5,7 +5,6 @@ import { jikanClient } from './jikanClient';
 import  type {
     AnimeDetails,
     AnimeListResponse,
-    Anime,
 } from "../types/anime.ts";
 
 export const animeApi = {
@@ -41,8 +40,11 @@ export const animeApi = {
     },
 
     //function to search for anime
-    getAnimeName: async(id: number) => {
-        const { data } = await jikanClient.get<Anime>(`/anime/${id}`);
+    searchByName: async (query: string, limit?: number) => {
+        const { data } = await jikanClient.get<AnimeListResponse>('/anime', {
+            params: { q: query, limit },
+        });
         return data;
     }
+    
 }

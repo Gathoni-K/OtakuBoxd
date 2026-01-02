@@ -197,13 +197,14 @@ the api, hooks, types and lib folders.
 -Create one function per endpoint.
 -For any API endpoint follow the template below:
     '
+    
     actionName: async (parameters) => {
         const {data} = await clientName.get<ResponseType>('endpoint', {
             params: {//query parameters for here},
         });
         return data;
     }
-    '
+    
 
 **7.Create Query Hooks.**
 -Done in the hooks folder.
@@ -235,8 +236,10 @@ Universal template:
     //options is used if 2 components want the same data but different fetching behaviour
     //they exist mainly for edge-cases
         return useQuery({
-            queryKey: ["resource", "action", ...parameters],
+            queryKey: ["resource", "action", parameter1, parameter2],
+            //this is what our data is
             queryFn: () => apiFunction(params),
+            //this is where it is coming from
             //arrow function calling our API function
 
             staleTime: 5 * 60 * 1000,
@@ -268,6 +271,125 @@ Universal template:
 
 -The dynamic values are the parameters that can change, parameters in our hook.
 
+**What does our hook do under the hood?**
+
+Understanding React Hooks.
+
+1.Caching
+-React query stores results in a global cache.
+-Our hook defines:
+
+    queryKey: ["resource", "action", param1]
+
+What is happening?
+1.Results are stored by ket,
+2.Any component using the same key gets the same data.
+3.No duplicate network requests - 2 components, one fetch.
+
+2.Background refetching
+-Data can be come stale
+
+    staleTime : 5 * 60 * 1000,
+
+-React query:
+1.uses cached data immediately.
+2.refetches in the background when needed.
+3.seamlessly updates UI.
+-User will not see a loading spinner again unless truly necessary.
+
+3.Request Cancellation.
+-When the component unmounts, query becomes disabled, query key changes, a new search happens.
+-By unmounting we mean when the component is no longer visible on the screen.
+
+4.Stale Data Management.
+-Each query has the following states:
+    fresh, stale, inactive, garbage collected.
+-React query tracks this.
+-Our hooks defines the rules using 'staleTime, gcTime'
+
+5.Automatic retries.
+-By default, failed queries retry, sops on certain errors, can be controlled using; 
+
+    retry: number,
+    //defines how many times our query will refetch data on encountering an error.
+
+6.Error Boundary Integration
+-Handles our errors.
+
+7.Window focus & Reconnect awareness.
+-Our query fetches automatically when internet reconnects or when user comes back to tab.
+-Our app stays fresh without manual logic.
+
+8.Pagination and Infinite State.
+-Hooks can manage: page numbers, cursors, infinite scroll state.
+-React query tracks which pages exist, which ones are fetching and which ones failed.
+
+
+9.Query invalidation.
+-WHen data changes elsewhere, react query marks relevant queries states, refetches data, updates all dependent components.
+
+
+Our hook contributes:
+    1.consistent query keys.
+    2.domain naming.
+    3.fetch function writing.
+    3.enable/disable logic.
+    4.sensible defaults.
+
+-React query contributes everything else.
+
+    Component - asks for data
+    Query hook - defines rules and identity
+    React Query - executes, caches, syncs
+    Network
+
+**Parameters we should define inside our hook.**
+-The are parameters that should be assigned the default value inside the hook and not the component, why? Because when defaults live in components, different defaults, causing unpredictable behaviour.
+
+-Any parameters affecting data shape or cache identity must be defined withing the hook.
+    limit, page, sort, filters, lang, seasons, includeAdult
+
+What should be defined in our hook?
+1.Defaults.
+
+    limit = 10
+    page = 1
+    sort = "popularity"
+
+2.Normalization.
+-Is tuning many equivalent inputs into one canonical form.
+-Are the different ways of asking the same thing should be treated as the same thing.
+Examples:
+
+    const normalizedQuery = query.trim().toLowerCase();
+    const normalizedLimit = limit ?? 10;
+    const normalizedPage = Math.max(1, page);
+    const includeAdult = !!rawIncludeAdult
+
+-If a value can be represented in multiple ways, or if different representations mean the same thing semantically, normalize.
+
+3.Validation.
+
+    enabled: query.length > 0
+
+
+
+
+## Correct Architectural Order
+
+1.Define the data source - API layer.
+//How do I get the data?
+2.Define the query Keys.
+//What do we call the data?
+3.Define Query Hooks.
+//Under what rules does this data exists?
+4.Define mutation hooks.
+//What changes this data?
+5.Consume in components.
+//How do we show this?
+
+
+
 **Consuming a hook in our component**
 -General pattern: 
     '
@@ -280,7 +402,7 @@ Universal template:
         }
         if(isError) {
             return <div>
-            Error: {{error as Error}?.message}
+            Error: {(error as Error)?.message}
             </div>
         }
 
@@ -376,6 +498,15 @@ What do we need?
 3.AnimeDetails = selectedId, uses useAnimeData internally.
 
 
+**Functions**
+
+    handleSearch()
+-Is an asynchronous functions.
+-State changes:
+    
+    setIsLoading(true)
+    setError(null)
+General pattern:
 
 
 

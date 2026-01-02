@@ -23,7 +23,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [isInitialized, setIsInitialized] = useState<boolean>(false); // 🔥 Add flag
 
-  // 🔥 FIX: Only run ONCE on mount to check localStorage
+ 
   useEffect(() => {
     const storedUser = localStorage.getItem('user');
     if (storedUser) {
@@ -40,7 +40,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     setIsInitialized(true); // Mark as initialized
   }, []); // Empty dependency array = runs ONCE
 
-  // 🔥 FIX: Only save to localStorage AFTER initialization
+
   useEffect(() => {
     // Don't run on initial mount, only on subsequent user changes
     if (!isInitialized) return;

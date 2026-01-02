@@ -12,7 +12,11 @@ export interface AnimeListResponse {
         has_next_page: boolean;
     };
 }
-
+/*
+-When an API returns:
+    a single item - Anime
+    a list wrapped in an object - AnimeListResponse\
+*/
 
 export interface Anime {
     data: Anime[];
@@ -22,6 +26,7 @@ export interface Anime {
     status: string;
     popularity: number;
     score: number;
+    type: string;
 }
 
 
