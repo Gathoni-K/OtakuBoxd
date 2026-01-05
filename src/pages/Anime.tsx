@@ -1,9 +1,9 @@
 import SearchBar from "../components/ui/SearchBar";
-import Layout from "../components/layout/Layout";
 import AnimeGrid from "../components/sections/AnimeGrid";
 import UpcomingAnimeGrid from "../components/sections/UpcomingAnimeGrid";
 import { useState } from "react";
 import { useAnimeName } from "../hooks/animeName";
+import AnimeDetails from "./AnimeDetails";
 
 const Anime = () => {
     const [name, setName] = useState<string>("");
@@ -33,7 +33,7 @@ const Anime = () => {
     };
 
     return (
-        <Layout>
+        <div>
         <SearchBar 
             name={name}
             setName={setName}
@@ -83,11 +83,16 @@ const Anime = () => {
                 <div 
                     key={anime.mal_id}
                     onClick={() => handleSelectAnime(anime.mal_id)}
-                    className="border rounded-lg p-4 cursor-pointer hover:shadow-lg transition-shadow"
+                    className="border rounded-lg p-4 cursor-pointer hover:shadow-lg transition-shadow
+                    flex flex-row items-center gap-6"
                 >
+                    <img src={anime.images.jpg.image_url} alt={anime.title} 
+                    className="rounded-lg"/>
+                    <div>
                     <h3 className="text-xl font-semibold text-violet-900">{anime.title}</h3>
                     <p>Type: {anime.type}</p>
                     <p className="text-gray-600 dark: text-stone-500">Score: {anime.score}</p>
+                    </div>
                 </div>
                 ))}
             </div>
@@ -95,18 +100,20 @@ const Anime = () => {
         )}
         
         {/* SELECTED ANIME VIEW: Show full details when anime is selected */}
-        {selectedId && (
-            <div className="container mx-auto px-4 py-6">
-            <button 
-                onClick={() => setSelectedId(null)}
-                className="mb-4 px-4 py-2 bg-gray-200 dark:bg-gray-700 rounded hover:bg-gray-300 dark:hover:bg-gray-600"
-            >
-                Back to Results
-            </button>
-            <div>Anime Details for ID: {selectedId}</div>
-            </div>
-        )}
-        </Layout>
+{selectedId && (
+    <div className="container mx-auto px-4 py-6">
+        <button 
+        onClick={() => setSelectedId(null)}
+        className="mb-4 px-4 py-2 bg-gray-200 dark:bg-gray-700 rounded hover:bg-gray-300 dark:hover:bg-gray-600"
+        >
+        Back to Results
+        </button>
+
+        {/* Pass selectedId as a prop */}
+        <AnimeDetails id={selectedId} />
+    </div>
+)}
+        </div>
     );
     };
 

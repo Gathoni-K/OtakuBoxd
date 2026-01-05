@@ -1,5 +1,6 @@
 import { useForm } from "react-hook-form";
 import type { SubmitHandler } from "react-hook-form";
+import { Link } from "react-router-dom";
 
 interface SignUpFormData{
     name: string,
@@ -146,13 +147,13 @@ const SignUp = () => {
 
                     </div>
 
-                    <button
+                    <Link to="/anime"
                     type="submit"
                     className="mt-2 bg-fuchsia-600 hover:bg-fuchsia-700 text-white font-semibold
                     rounded-lg shadow transition-all duration-300 hover:scale-110 w-[130px] px-6 py-3 block mx-auto"
                     >
                         Let's Go!
-                    </button>
+                    </Link>
                 </form>
 
                 </div>

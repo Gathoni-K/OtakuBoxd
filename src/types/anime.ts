@@ -15,7 +15,7 @@ export interface AnimeListResponse {
 /*
 -When an API returns:
     a single item - Anime
-    a list wrapped in an object - AnimeListResponse\
+    a list wrapped in an object - AnimeListResponse
 */
 
 export interface Anime {
@@ -27,6 +27,8 @@ export interface Anime {
     popularity: number;
     score: number;
     type: string;
+    episodes: number;
+
 }
 
 
@@ -34,5 +36,10 @@ export interface AnimeDetails extends Anime{
     type: string;
     duration: string;
     rating: string;
+    synopsis: string;
+    studios?: Array<{ name: string }>; 
     
+}
+export interface AnimeDetailsResponse {
+    data: AnimeDetails;
 }

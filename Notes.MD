@@ -2,6 +2,7 @@
 
 **1.Create the Context.**
 always type our context as undefined and as the type of our context i.e.
+-Define the types of our contexts before this
     '
     
     const ThemeContext = createContext<ThemContextType | undefined>(undefined);
@@ -44,8 +45,52 @@ always type our context as undefined and as the type of our context i.e.
     '
     
     <ThemeContext.Provider value={{isDark, setIsDark, toggleTheme}}>
-    
 
+
+**Creating the Anime Watchlist context**
+
+
+-Types needed for our context are the addToWatchList, deletefromWatchList, isinWatchList and the data we need.
+-Creation follows the same general pattern.
+-State needed:
+
+    const [watchList, setWatchlist] = useState<Anime[]>([])
+
+-Creating our functions.
+-The add function is an example of updating arrays in state.
+-General pattern:
+
+    setStateName(prevItems => 
+    [...prevItems, newItem]);
+
+-The delete function will follow this pattern:
+
+    setStateName(prevItems => prevItems.filter(item=> item.id !== idToRemove));
+
+-To update / replace an item:
+
+    setItems(prevItems => prevItems.map(item => 
+    item.id === targetId ? {...item, name: "" } : item ));
+    
+-The add function:
+
+    function addAnimeToWatchlist(anime: Anime) {
+    setWatchList(prevWatchlist => {
+        // First: check if anime already exists (use .find or .some)
+        // If it exists, return prevWatchlist unchanged
+        if(prevWatchlist.some(item =>  anime.mal_id === anime.mal_id)){
+            //some goes through every item in the array
+            //the pattern is generally: .some(item => condition)
+
+            return prevWatchlist
+        }
+        else{
+            return [...prevWatchlist, anime]
+        }
+        
+        // If it doesn't exist, return [...prevWatchlist, anime]
+    });
+}
 
 **3.Create the hook.**
 General Pattern:
@@ -439,12 +484,12 @@ What do we need?
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setName(e.target.value); // Capture value on every keystroke
-  };
+     };
 
-  return (
+    return (
     <input type="text" value={name} onChange={handleChange} />
-  );
-}
+    );
+    }
 
 -Search trigger.
 -On pressing the enter key, calls our fetch function once.
@@ -506,7 +551,47 @@ What do we need?
     
     setIsLoading(true)
     setError(null)
-General pattern:
+
+
+# Lists page
+
+-Making the lists page.
+-User is able to add, delete and mark as completed anime in this page.
+-Basically our To-do App.
+
+User journey:
+-On clicking on anime, the details of the anime are shown and there is an add button.
+-On clicking the add button, the anime is added to the lists page.
+-In the lists page, 3 containers: Watching, Completed, Dropped.
+-When an anime is added, goes to the watching container.
+-In the watching container, 2 buttons: delete, tick.
+-The tick moves the anime to completed and the delete moves the anime to dropped.
+
+
+**Basic Button styles**
+-For a modern UI:
+    
+    inline-flex items-center justify-center
+    rounded-lg
+    font-medium
+    transition-all duration-200 ease-in-out
+    focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2
+    disabled:opacity-50 disabled:pointer-events-none
+    shadow-sm/lg/md
+
+    //the inline-flex- aligns the icons and the text perfectly.
+    //disabled - ensures there is consistent disabled behavior.
+
+-For a glassy soft UI:
+
+    bg-white/70 backdrop-blur-md border border-white/30
+
+-For a subtle glow on focus:
+
+    focus-visible:ring-indigo-500/50
+
+
+
 
 
 

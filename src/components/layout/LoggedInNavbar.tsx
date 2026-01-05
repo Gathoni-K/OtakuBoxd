@@ -1,5 +1,6 @@
 import { useAuth } from "../../contexts/AuthContext";
 import { CgProfile } from "react-icons/cg";
+import { Link } from "react-router-dom";
 
 const LoggedInNavbar = () => {
     const { logout } = useAuth();
@@ -15,8 +16,10 @@ const LoggedInNavbar = () => {
             </div>
             {/* links section */}
             <div className="flex justify-center items-center gap-8 md:gap-26 lg:gap-24">
-                <a className="relative tracking-wide cursor-pointer 
-                    hover:text-fuchsia-500
+                <Link to="/anime"
+                
+                className="relative tracking-wide cursor-pointer 
+                    hover:text-violet-700
                     drop-shadow-lg drop-shadow-violet-300 
                     transition-all duration-300
                     before:content-[''] before:absolute before:bottom-0 before:left-0
@@ -24,8 +27,9 @@ const LoggedInNavbar = () => {
                     hover:before:w-full
                     hover:drop-shadow-[0_0_10px_#fuchsia-500]">
                     Anime
-                </a>
-                <a className="relative tracking-wide cursor-pointer 
+                </Link>
+                <Link to="/lists"
+                className="relative tracking-wide cursor-pointer 
                     hover:text-fuchsia-500
                     drop-shadow-lg drop-shadow-violet-300 
                     transition-all duration-300
@@ -34,8 +38,9 @@ const LoggedInNavbar = () => {
                     hover:before:w-full
                     hover:drop-shadow-[0_0_10px_#fuchsia-500]">
                     Lists
-                </a>
-                <a className="relative tracking-wide cursor-pointer 
+                </Link>
+                <Link to="/journal"
+                className="relative tracking-wide cursor-pointer 
                     hover:text-fuchsia-500
                     drop-shadow-lg drop-shadow-violet-300 
                     transition-all duration-300
@@ -44,7 +49,7 @@ const LoggedInNavbar = () => {
                     hover:before:w-full
                     hover:drop-shadow-[0_0_10px_#fuchsia-500]">
                     Journal
-                </a>
+                </Link>
             </div>
             {/* profile and logout buttons */}
             <div className="flex justify-center items-center gap-6 md:gap-10">

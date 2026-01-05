@@ -6,25 +6,28 @@ import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
 import HomePage from "./pages/HomePage";
 import Anime from "./pages/Anime";
-
-
+import Lists from "./pages/Lists";
+import Journal from './pages/Journal';
+import Layout from "./components/layout/Layout"; 
 
 function App() {
     return (
         <ThemeProvider>
-            <AuthProvider>
-                 <BrowserRouter>
-                 <Routes>
-                   <Route path="/login" element={<Login />} />
-                   <Route path="/signup" element={<SignUp />} />
-                  <Route path="/" element={<HomePage />} /> 
-                  <Route path="/anime" element={<Anime />} />
-                </Routes>
-                 </BrowserRouter>
-
-                 
+        <AuthProvider>
+            <BrowserRouter>
+            <Routes>
+                {/* Wrap pages that need NavBar */}
+                <Route path="/" element={<Layout><HomePage /></Layout>} />
+                <Route path="/anime" element={<Layout><Anime /></Layout>} />
+                <Route path="/lists" element={<Layout><Lists /></Layout>} />
+                <Route path="/journal" element={<Layout><Journal /></Layout>} />
                 
-            </AuthProvider>
+                {/* Login/Signup without Layout */}
+                <Route path="/login" element={<Login />} />
+                <Route path="/signup" element={<SignUp />} />
+            </Routes>
+            </BrowserRouter>
+        </AuthProvider>
         </ThemeProvider>
     );
 }

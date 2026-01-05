@@ -43,15 +43,42 @@ const LoggedOutNavbar = () => {
 
       {/* links section */}
       <div className="flex justify-center items-center gap-8">
-        <a className="relative tracking-wide cursor-pointer hover:text-fuchsia-500">
+        <Link to="/anime" 
+        className="
+        relative tracking-wide cursor-pointer 
+                    hover:text-violet-700
+                    drop-shadow-lg drop-shadow-violet-300 
+                    transition-all duration-300
+                    before:content-[''] before:absolute before:bottom-0 before:left-0
+                    before:w-0 before:h-0.5 before:bg-fuchsia-500 before:transition-all before:duration-300
+                    hover:before:w-full
+                    hover:drop-shadow-[0_0_10px_#fuchsia-500]">
           Anime
-        </a>
-        <a className="relative tracking-wide cursor-pointer hover:text-fuchsia-500">
+        </Link>
+        <Link to="/lists"
+        className="
+        relative tracking-wide cursor-pointer hover:text-violet-700
+        drop-shadow-lg drop-shadow-violet-300 
+                    transition-all duration-300
+                    before:content-[''] before:absolute before:bottom-0 before:left-0
+                    before:w-0 before:h-0.5 before:bg-fuchsia-500 before:transition-all before:duration-300
+                    hover:before:w-full
+                    hover:drop-shadow-[0_0_10px_#fuchsia-500]">
           Lists
-        </a>
-        <a className="relative tracking-wide cursor-pointer hover:text-fuchsia-500">
+        </Link>
+        <Link to="/journal" 
+        className="
+        relative tracking-wide cursor-pointer 
+                    hover:text-violet-700
+                    drop-shadow-lg drop-shadow-violet-300 
+                    transition-all duration-300
+                    before:content-[''] before:absolute before:bottom-0 before:left-0
+                    before:w-0 before:h-0.5 before:bg-fuchsia-500 before:transition-all before:duration-300
+                    hover:before:w-full
+                    hover:drop-shadow-[0_0_10px_#fuchsia-500]
+        ">
           Journal
-        </a>
+        </Link>
       </div>
 
       {/* login and sign up links */}
