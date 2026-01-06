@@ -1,6 +1,7 @@
 import './App.css'
 import { ThemeProvider } from './contexts/ThemeContext';
 import { AuthProvider } from './contexts/AuthContext';
+import { WatchlistProvider } from './contexts/WatchListContext'
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
@@ -14,6 +15,7 @@ function App() {
     return (
         <ThemeProvider>
         <AuthProvider>
+            <WatchlistProvider>
             <BrowserRouter>
             <Routes>
                 {/* Wrap pages that need NavBar */}
@@ -27,6 +29,7 @@ function App() {
                 <Route path="/signup" element={<SignUp />} />
             </Routes>
             </BrowserRouter>
+            </WatchlistProvider>
         </AuthProvider>
         </ThemeProvider>
     );

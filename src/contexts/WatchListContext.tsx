@@ -1,5 +1,6 @@
 import { createContext, useContext, useState } from "react";
 import type { Anime } from "../types/anime";
+import type { ReactNode } from "react";
 
 
 interface WatchListContextType{
@@ -12,14 +13,7 @@ interface WatchListContextType{
 
 const WatchListContext = createContext<WatchListContextType | undefined>(undefined);
 
-export const useWatchListContext = () => {
-    const context = useContext(WatchListContext);
-
-    if(!context) {
-        throw new Error("WatchListContext must be used withing WatchListContext");
-    }
-    return context;
-
+export const WatchlistProvider = ( {children} : { children: ReactNode }) => {
     const [watchList, setWatchlist] = useState<Anime[]>([]);
 
     //function to add anime to watchlist
@@ -44,5 +38,21 @@ export const useWatchListContext = () => {
         });
     };
 
-    
+    const isInWatchlist = (animeId: number) => {
+        return watchList.some(item => item.mal_id === animeId);
+    }
+
+    return (
+        <WatchListContext.Provider value={{ addToWatchlist, removeFromWatchlist, watchList, isInWatchlist}}>
+                {children}
+        </WatchListContext.Provider>
+    );  
+};
+
+export const useWatchList = () => {
+    const context = useContext(WatchListContext);
+    if(!context){
+        throw new Error('useWatchLIst must be used within WatchListProvider')
+    }
+    return context;
 }

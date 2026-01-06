@@ -20,7 +20,7 @@ const AnimeDetails = ({ id }: AnimeDetailsProps) => {
         return <div>Error: {(error as Error)?.message}</div>
     }
     
-    // Since you're fetching a single anime, data.data is an object, not an array
+    // Since we're fetching a single anime, data.data is an object, not an array
     const animeData = data?.data;
     
     if (!animeData) {
