@@ -41,6 +41,8 @@ export const WatchlistProvider = ( {children} : { children: ReactNode }) => {
     const isInWatchlist = (animeId: number) => {
         return watchList.some(item => item.mal_id === animeId);
     }
+    //gives us feedback, tells UI what state things are in so we can show the 
+    //user accurate information.
 
     return (
         <WatchListContext.Provider value={{ addToWatchlist, removeFromWatchlist, watchList, isInWatchlist}}>

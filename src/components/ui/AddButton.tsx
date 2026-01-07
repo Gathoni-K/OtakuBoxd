@@ -1,10 +1,23 @@
+import { useWatchList } from "../../contexts/WatchListContext";
 import { IoMdAdd } from "react-icons/io";
+import type { Anime } from "../../types/anime";
 
-const AddButton = () => {
+interface AddButtonProps{
+    anime: Anime;
+}
+
+const AddButton = ({
+    anime
+}: AddButtonProps) => {
+
+    const { addToWatchlist } = useWatchList();
+
+
     return (
         <div>
 
-        <button
+        <button 
+        onClick={() => addToWatchlist(anime)}
         className="p-2 rounded-md inline-flex items-center
         font-medium justify-center transition-all duration-200 ease-in-out
         focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2

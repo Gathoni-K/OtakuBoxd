@@ -105,6 +105,36 @@ General Pattern:
             return context;
         }
         
+**Consuming the watchlist hook in our component**
+-On clicking the add button, an anime is added to the Watching section of the Lists page.
+-On clicking the delete button, removes anime from the watching section.
+
+1.Import the custom hook at the top of the component.
+
+    import { useWatchlist } from "path to context";
+
+2.Call the hook inside our component, top-level, before any returns.
+
+    const { watchList, addToWatchlist, removeFromWatchlist, isInWatchlist } = useWatchlist();
+
+3.Use the functions in even handlers:
+
+    onClick={() => addToWatchlist(animeData)
+
+
+**Conditional Redndering**
+
+1.Using ternary operator.
+
+    (condition ? exp1 : exp2 )
+
+-Used when the logic is simple and there are only 2 options to render.
+-RUns exp1 when the condition is true, else runs exp2.
+
+2.Using Logical AND(&&) operator.
+-Returns the second operand if the first is true and nothing if the first is false.
+-Used when we want to render something only when a condition is true.
+
 
 **Mapping through Styles**
 

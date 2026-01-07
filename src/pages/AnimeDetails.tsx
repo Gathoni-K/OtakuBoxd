@@ -1,7 +1,10 @@
 /*
 -Anime page showing the anime details
+-On clicking the add button, anime is added to the watching section in lists page.
 */
+
 import { useAnimeData } from "../hooks/animeData";
+import { useWatchList } from "../contexts/WatchListContext";
 import AddButton from "../components/ui/AddButton";
 import DeleteButton from "../components/ui/DeleteButton";
 
@@ -11,6 +14,8 @@ interface AnimeDetailsProps {
 
 const AnimeDetails = ({ id }: AnimeDetailsProps) => {
     const { data, isLoading, isError, error } = useAnimeData(id);
+
+    const { isInWatchlist } = useWatchList();
     
     if(isLoading) {
         return <div>Loading anime data...</div>
@@ -47,10 +52,14 @@ const AnimeDetails = ({ id }: AnimeDetailsProps) => {
         </div>
 
         {/* container for our add and delete buttons */}
+
         <div className="flex justify-end mt-4 md:mt-6 lg:mt-8 gap-6 md:gap-10
         flex-col md:flex-row">
-            <AddButton />
-            <DeleteButton />
+            {isInWatchlist(animeData.mal_id) ? (
+                <DeleteButton animeId={animeData.mal_id}/>
+            ): (
+                <AddButton anime={animeData}/>
+            )}
         </div>
 
         </div>
