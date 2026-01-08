@@ -1,10 +1,17 @@
+// Watching.tsx - Update your existing component
 /*
 Section where anime is added directly on clicking the add button
 */
 import { useWatchList } from "../../contexts/WatchListContext";
 import DeleteButton from "../ui/DeleteButton";
+import CompletedButton from "../ui/CompletedButton";
+import type { Anime } from "../../types/anime";
 
-const Watching = () => {
+interface WatchingProps {
+    onComplete: (anime: Anime) => void;
+}
+
+const Watching = ({ onComplete }: WatchingProps) => {
     const { watchList } = useWatchList();
     
     if (watchList.length === 0) {
@@ -67,8 +74,9 @@ const Watching = () => {
                                 </p>
                             </div>
                             
-                            {/* Delete button at bottom right */}
-                            <div className="flex justify-end mt-4">
+                            {/* Buttons at bottom right */}
+                            <div className="flex justify-end gap-2 mt-4">
+                                <CompletedButton anime={anime} onComplete={onComplete} />
                                 <DeleteButton animeId={anime.mal_id} />
                             </div>
                         </div>
