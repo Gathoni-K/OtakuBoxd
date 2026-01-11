@@ -621,6 +621,10 @@ User journey:
     focus-visible:ring-indigo-500/50
 
 
+**Setting up the Journal Page.**
+-Define our api.
+
+
 
 
 

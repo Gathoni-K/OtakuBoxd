@@ -5,6 +5,7 @@ import { jikanClient } from './jikanClient';
 import  type {
     AnimeDetailsResponse,
     AnimeListResponse,
+    ReviewsResponse,
 } from "../types/anime.ts";
 
 export const animeApi = {
@@ -46,6 +47,14 @@ export const animeApi = {
             params: { q: query, limit },
         });
         return data;
-    }
+    },
+
+    //function to fetch anime reviews.
+    getAnimeReviews: async (id: number, page: number = 1, preliminary?: boolean, spoilers?: string) => {
+    const { data } = await jikanClient.get<ReviewsResponse>(`/anime/${id}/reviews`, {
+        params: {page, preliminary, spoilers},
+    });
+    return data;
+},
     
 }

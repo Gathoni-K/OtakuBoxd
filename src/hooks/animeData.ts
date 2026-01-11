@@ -3,7 +3,7 @@
 */
 
 import { useQuery } from "@tanstack/react-query";
-import { animeApi } from "../api/animeApi";
+import { animeApi } from "../api/animeApi"; 
 
 export const useAnimeData = (
     id: number,
